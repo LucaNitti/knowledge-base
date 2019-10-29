@@ -1,0 +1,27 @@
+@import './variable.scss';
+h1 {
+    color: $primary-color !important;
+    margin-left: 50px;
+}
+
+.elementCustom {
+    min-width: 500px;
+    min-height: 500px;
+    border: 2px black solid;
+    color: red;
+}
+
+body {
+    text-align: center;
+    margin: auto;
+    background-color: $background-color;
+}
+
+.rdw-editor-main {
+    background: white;
+    min-height: 300px;
+}
+.rdw-editor-toolbar {
+    padding-bottom: 0px;
+    margin-bottom: 0;
+}
