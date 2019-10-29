@@ -20,7 +20,7 @@ export default class App extends Component {
     save = () => {
         let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         const data = JSON.stringify({ content, id: 0 });
-        console.log(content);
+
         axios.post('/api/save', data).then(res => {
             console.log(res);
         });
