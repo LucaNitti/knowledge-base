@@ -5,6 +5,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import axios from 'axios';
 
 export default class App extends Component {
     state = {
@@ -18,15 +19,13 @@ export default class App extends Component {
     };
     save = () => {
         let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        const data = JSON.stringify({ content, id: 0 });
         console.log(content);
-        fetch('/api/save', {
-            method: 'put',
-            body: content,
-        }).then(function(response) {
-            console.log(response);
+        axios.post('/api/save', data).then(res => {
+            console.log(res);
         });
     };
-    
+
     render() {
         const { editorState } = this.state;
         return (

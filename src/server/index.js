@@ -1,14 +1,16 @@
 const express = require('express');
 const os = require('os');
+var bodyParser = require('body-parser');
 
 const app = express();
 
 app.use(express.static('dist'));
-app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
-app.get('/api/getGreet', (req, res) => res.send({ greet: 'ciao' }));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.put('/api/save', (req, res) => {
-    console.log(req);
+app.post('/api/save', (req, res) => {
+    console.log('reqbody ', req.body);
+    res.send({ greet: 'ciao' });
 });
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
