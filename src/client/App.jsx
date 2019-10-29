@@ -12,6 +12,12 @@ export default class App extends Component {
         editorState: EditorState.createEmpty(),
     };
 
+    componentDidMount() {
+        axios.get('/api/getAll').then(res => {
+            console.log(res);
+        });
+    }
+
     onEditorStateChange = editorState => {
         this.setState({
             editorState,
@@ -19,7 +25,7 @@ export default class App extends Component {
     };
     save = () => {
         let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
-        const data = JSON.stringify({ content, id: 0 });
+        const data = { content, _id: 0 };
 
         axios.post('/api/save', data).then(res => {
             console.log(res);
