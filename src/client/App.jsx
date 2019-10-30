@@ -9,71 +9,30 @@ import axios from 'axios';
 
 export default class App extends Component {
     state = {
-        editorState: EditorState.createEmpty(),
+        documents: [],
     };
 
     componentDidMount() {
         axios.get('/api/getAll').then(res => {
-            console.log(res);
+            //todo handle error
+            this.setState({ documents: res.data.documents });
         });
     }
 
-    onEditorStateChange = editorState => {
-        this.setState({
-            editorState,
-        });
-    };
-
-    save = () => {
-        let id = this.state.id;
-        let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
-        const data = { content, id };
-        if (id) this.update(data);
-        else this.create(data);
-    };
-    update = data => {
-        axios.put('/api/save', data).then(res => {
-            let { status, data } = res;
-            if (status !== 200 || data.err) {
-                console.log('err ' + status, data.err);
-                return;
-            }
-        });
-    };
-
-    create = data => {
-        axios.post('/api/save', data).then(res => {
-            let { status, data } = res;
-            if (status !== 200 || data.err) {
-                console.log('err ' + status, data.err);
-                return;
-            }
-            console.log(data);
-            this.setState({ id: data.doc._id });
-        });
-    };
-
     render() {
-        const { editorState } = this.state;
+        const { documents } = this.state;
+
         return (
-            <Container>
+            <div className="document container">
                 <h1>Knowledge base</h1>
-                <div className="row d-flex justify-content-center">
-                    <div className="col-8">
-                        <Editor
-                            editorState={editorState}
-                            wrapperClassName="demo-wrapper"
-                            editorClassName="demo-editor"
-                            onEditorStateChange={this.onEditorStateChange}
-                        />
-                    </div>
-                </div>
-                <div className="row d-flex justify-content-center mt-1">
-                    <div className="btn btn-info" onClick={this.save}>
-                        Salva
-                    </div>
-                </div>
-            </Container>
+                <ul>
+                    {documents.map(x => (
+                        <li href="#" key={x._id}>
+                            {x.title}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         );
     }
 }

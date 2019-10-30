@@ -17,29 +17,31 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.get('/api/getAll', (req, res) => {
     // Find all documents in the collection
-    res.send({ ciao: 'ciao' });
+    Document.find((error, documents) => {
+        if (error) return res.status(500).send({ error });
+        return res.status(200).send({ documents });
+    });
 });
 
 app.post('/api/save', (req, res) => {
     var obj = req.body;
-    var doc = new Document(obj);
-
-    doc.save(err => {
-        if (err) return res.status(500).send({ err });
-        return res.status(200).send({ doc });
+    var document = new Document(obj);
+    document.save(error => {
+        if (error) return res.status(500).send({ error });
+        return res.status(200).send({ document });
     });
 });
 
 app.put('/api/save', (req, res) => {
     const id = req.body.id;
-    let doc = req.body;
-    delete doc['id'];
-    console.log(id, doc);
-    let objectId = mongoose.Types.ObjectId(id);
-    Document.findByIdAndUpdate(objectId, doc, { new: true }, (err, doc) => {
+    let document = req.body;
+    delete document['id'];
+    console.log(id, document);
+    let documentId = mongoose.Types.ObjectId(id);
+    Document.findByIdAndUpdate(documentId, document, { new: true }, (error, document) => {
         // Handle any possible database errors
-        if (err) return res.status(500).send({ err });
-        return res.send({ doc });
+        if (error) return res.status(500).send({ error });
+        return res.send({ document });
     });
 });
 

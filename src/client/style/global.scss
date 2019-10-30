@@ -1,4 +1,5 @@
 @import './variable.scss';
+@import './customEditor.scss';
 h1 {
     color: $primary-color !important;
     margin-left: 50px;
@@ -17,11 +18,17 @@ body {
     background-color: $background-color;
 }
 
-.rdw-editor-main {
-    background: white;
-    min-height: 300px;
-}
-.rdw-editor-toolbar {
-    padding-bottom: 0px;
-    margin-bottom: 0;
+.document {
+    &.container {
+        background-color: whitesmoke;
+        padding-bottom: 100px;
+        padding-top: 20px;
+        margin-top: 50px;
+    }
+    &.title {
+        border: none;
+        background-color: whitesmoke;
+        border-bottom: 1px solid black;
+        margin-bottom: 10px;
+    }
 }

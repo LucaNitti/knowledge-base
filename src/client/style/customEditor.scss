@@ -1,0 +1,28 @@
+.rdw-editor-main {
+    background-color: whitesmoke;
+    min-height: 300px;
+}
+.rdw-editor-toolbar {
+    padding-bottom: 0px;
+    margin-bottom: 0;
+    background-color: whitesmoke;
+    border-color: $primary-color;
+}
+.rdw-dropdown-wrapper.rdw-block-dropdown {
+    border: none;
+}
+.rdw-editor-wrapper {
+    border: 1px solid;
+    border-color: $primary-color;
+}
+
+.rdw-option-wrapper {
+    background-color: whitesmoke;
+    border: none;
+    padding: 1px;
+}
+
+.rdw-dropdown-selectedtext {
+    background-color: whitesmoke;
+    border-color: $primary-color;
+}
