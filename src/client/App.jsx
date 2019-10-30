@@ -23,12 +23,33 @@ export default class App extends Component {
             editorState,
         });
     };
-    save = () => {
-        let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
-        const data = { content, _id: 0 };
 
+    save = () => {
+        let id = this.state.id;
+        let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        const data = { content, id };
+        if (id) this.update(data);
+        else this.create(data);
+    };
+    update = data => {
+        axios.put('/api/save', data).then(res => {
+            let { status, data } = res;
+            if (status !== 200 || data.err) {
+                console.log('err ' + status, data.err);
+                return;
+            }
+        });
+    };
+
+    create = data => {
         axios.post('/api/save', data).then(res => {
-            console.log(res);
+            let { status, data } = res;
+            if (status !== 200 || data.err) {
+                console.log('err ' + status, data.err);
+                return;
+            }
+            console.log(data);
+            this.setState({ id: data.doc._id });
         });
     };
 
