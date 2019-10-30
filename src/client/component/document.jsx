@@ -7,11 +7,16 @@ import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 
-export default class App extends Component {
+export default class Document extends Component {
     state = {
         editorState: EditorState.createEmpty(),
         title: '',
     };
+
+    componentDidMount() {
+        console.log(this.props);
+        console.log(this.props.match.params.id);
+    }
 
     onEditorStateChange = editorState => {
         this.setState({
@@ -55,8 +60,7 @@ export default class App extends Component {
     render() {
         const { editorState, title } = this.state;
         return (
-            <div className="document container">
-                <h1>Knowledge base</h1>
+            <>
                 <div className="row d-flex justify-content-center">
                     <div className="col-12 form-group">
                         <input type="text" className="form-control document title" placeholder="title" value={title} onChange={this.handleChange} />
@@ -77,7 +81,7 @@ export default class App extends Component {
                         Salva
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 }

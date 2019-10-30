@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { EditorState, convertToRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Main from './component/main';
+import Document from './component/document';
 
 export default class App extends Component {
     state = {
         documents: [],
     };
-
-    componentDidMount() {
-        axios.get('/api/getAll').then(res => {
-            //todo handle error
-            this.setState({ documents: res.data.documents });
-        });
-    }
-
     render() {
-        const { documents } = this.state;
-
         return (
-            <div className="document container">
-                <h1>Knowledge base</h1>
-                <ul>
-                    {documents.map(x => (
-                        <li href="#" key={x._id}>
-                            {x.title}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <Router>
+                <div className="document container">
+                    <h1>Knowledge base</h1>
+
+                    <Link to="/new">New</Link>
+                    <Link to="/">Main</Link>
+
+                    <Switch>
+                        <Route path="/new">
+                            <Document />
+                        </Route>
+                        <Route path="/document/:id" render={props => <Document {...props} />} />
+                        <Route path="/">
+                            <Main />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }
