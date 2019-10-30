@@ -1,15 +1,11 @@
 const express = require('express');
-const os = require('os');
+var expressMongoDb = require('express-mongo-db');
 var bodyParser = require('body-parser');
-const path_db = 'db';
-var Datastore = require('nedb'),
-    db = new Datastore({ filename: path_db, autoload: true });
-db.loadDatabase(function(err) {
-    // Callback is optional
-    // Now commands will be executed
-});
+const mongo = require('mongodb');
+const url = 'mongodb://localhost:27017/knowledgeBase';
 
 const app = express();
+app.use(expressMongoDb(url));
 
 app.use(express.static('dist'));
 app.use(bodyParser.json()); // support json encoded bodies
@@ -17,12 +13,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.get('/api/getAll', (req, res) => {
     // Find all documents in the collection
-    db.find({}, function(err, docs) {
-        res.send(docs);
-    });
+    console.log(req.db);
+    req.db
+        .collection('document')
+        .find()
+        .toArray((err, docs) => {
+            res.send(docs);
+        });
 });
 app.post('/api/save', (req, res) => {
-    db.insert(req.body);
+    req.db.collection('document').insert(req.body);
     res.send({ greet: 'ciao' });
 });
 
