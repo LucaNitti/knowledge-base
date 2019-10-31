@@ -18,13 +18,9 @@ export default class App extends Component {
                     <Link to="/">Main</Link>
 
                     <Switch>
-                        <Route path="/new">
-                            <Document />
-                        </Route>
-                        <Route path="/document/:id" render={props => <Document {...props} />} />
-                        <Route path="/">
-                            <Main />
-                        </Route>
+                        <Route path="/new" component={Document} />
+                        <Route path="/document/:id" component={Document} />
+                        <Route path="/" component={Main} />
                     </Switch>
                 </div>
             </Router>

@@ -9,7 +9,7 @@ export default class Main extends Component {
     };
 
     componentDidMount() {
-        axios.get('/api/getAll').then(res => {
+        axios.get('/api/get').then(res => {
             //todo handle error
             this.setState({ documents: res.data.documents });
         });

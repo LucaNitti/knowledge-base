@@ -15,11 +15,20 @@ app.use(express.static('dist'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.get('/api/getAll', (req, res) => {
+app.get('/api/get', (req, res) => {
     // Find all documents in the collection
     Document.find((error, documents) => {
         if (error) return res.status(500).send({ error });
         return res.status(200).send({ documents });
+    });
+});
+
+app.get('/api/get/:id', (req, res) => {
+    let id = req.params.id;
+    if (!id) res.status(500).send({ error: 'not valid id' });
+    Document.findById(id, (error, document) => {
+        if (error) return res.status(500).send({ error });
+        return res.status(200).send({ document });
     });
 });
 

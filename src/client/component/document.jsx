@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
@@ -8,14 +8,34 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 
 export default class Document extends Component {
-    state = {
-        editorState: EditorState.createEmpty(),
-        title: '',
-    };
+    constructor(props) {
+        super(props);
+        let id = this.props.match.params.id;
 
+        this.state = {
+            editorState: EditorState.createEmpty(),
+            title: '',
+            id,
+        };
+    }
     componentDidMount() {
         console.log(this.props);
-        console.log(this.props.match.params.id);
+        let { id } = this.state;
+        if (!id) return;
+        axios.get(`/api/get/${id}`).then(res => {
+            console.log(res.data.document);
+            if (res.data.document) {
+                const contentBlock = htmlToDraft(res.data.document.content);
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                let newState = {
+                    title: res.data.document.title,
+                    editorState,
+                };
+                console.log(newState);
+                this.setState(newState);
+            }
+        });
     }
 
     onEditorStateChange = editorState => {
@@ -68,12 +88,14 @@ export default class Document extends Component {
                 </div>
                 <div className="row d-flex justify-content-center">
                     <div className="col-12">
-                        <Editor
-                            editorState={editorState}
-                            wrapperClassName="demo-wrapper"
-                            editorClassName="demo-editor"
-                            onEditorStateChange={this.onEditorStateChange}
-                        />
+                        {editorState && (
+                            <Editor
+                                editorState={editorState}
+                                wrapperClassName="demo-wrapper"
+                                editorClassName="demo-editor"
+                                onEditorStateChange={this.onEditorStateChange}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center mt-1">
