@@ -44,8 +44,8 @@ app.post('/api/save', (req, res) => {
 app.put('/api/save', (req, res) => {
     const id = req.body.id;
     let document = req.body;
+    document.lastModified = new Date();
     delete document['id'];
-    console.log(id, document);
     let documentId = mongoose.Types.ObjectId(id);
     Document.findByIdAndUpdate(documentId, document, { new: true }, (error, document) => {
         // Handle any possible database errors

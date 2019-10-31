@@ -4,6 +4,16 @@ const documentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    created: {
+        type: Date,
+        required: false,
+        default: new Date(),
+    },
+    lastModified: {
+        type: Date,
+        required: false,
+        default: new Date(),
+    },
     content: {
         type: String,
         required: true,
