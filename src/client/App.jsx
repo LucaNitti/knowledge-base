@@ -14,12 +14,14 @@ export default class App extends Component {
                 <div className="document container">
                     <h1>Knowledge base</h1>
 
-                    <Link to="/new">New</Link>
+                    <Link replace={true} to="/new">
+                        New
+                    </Link>
                     <Link to="/">Main</Link>
 
                     <Switch>
-                        <Route path="/new" component={Document} />
-                        <Route path="/document/:id" component={Document} />
+                        <Route key="new-document" path="/new" component={Document} />
+                        <Route key="edit-document" path="/document/:id" component={Document} />
                         <Route path="/" component={Main} />
                     </Switch>
                 </div>
