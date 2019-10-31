@@ -19,7 +19,6 @@ export default class Document extends Component {
         };
     }
     componentDidMount() {
-        console.log(this.props);
         let { id } = this.state;
         if (!id) return;
         axios.get(`/api/get/${id}`).then(res => {
@@ -32,7 +31,6 @@ export default class Document extends Component {
                     title: res.data.document.title,
                     editorState,
                 };
-                console.log(newState);
                 this.setState(newState);
             }
         });
