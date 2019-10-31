@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Main from './component/main';
 import Document from './component/document';
 
