@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
-import { HashRouter } from 'react-router-dom';
 
 export default class Document extends Component {
     constructor(props) {
