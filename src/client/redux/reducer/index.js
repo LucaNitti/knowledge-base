@@ -1,8 +1,10 @@
 import { ADD_ERROR } from '../costants/index';
+import { reducer as notifications } from 'react-notification-system-redux';
+import { combineReducers } from 'redux';
 const initialState = {
     errors: [],
 };
-function rootReducer(state = initialState, action) {
+function myReducer(state = initialState, action) {
     if (action.type === ADD_ERROR) {
         return {
             ...state,
@@ -13,4 +15,6 @@ function rootReducer(state = initialState, action) {
     }
     return state;
 }
+console.log(myReducer, notifications);
+const rootReducer = combineReducers({ myReducer, notifications });
 export default rootReducer;

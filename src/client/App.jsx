@@ -4,26 +4,22 @@ import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Main from './component/main';
 import Document from './component/document';
 import { connect } from 'react-redux';
-import NotificationSystem from 'react-notification-system';
+import Notifications from 'react-notification-system-redux';
 class App extends Component {
     state = {
         documents: [],
     };
-    notificationSystem = React.createRef();
 
     componentDidUpdate() {
-        console.log('componentDidUpdate');
         let errors = this.state.errors;
-        const notification = this.notificationSystem.current;
-        for (let error in errors) {
-            notification.addNotification(error);
-        }
+
+        console.log('componentDidUpdate', errors);
     }
 
     render() {
         return (
             <>
-                <NotificationSystem ref={this.notificationSystem} />
+                <Notifications notifications={this.props.notifications} />
                 <Router>
                     <div className="document container">
                         <Link to="/">
@@ -46,7 +42,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-    return { errors: state.errors };
+    return { notifications: state.notifications };
 };
 
 export default connect(

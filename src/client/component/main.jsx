@@ -3,9 +3,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import ArticlePreview from './ArticlePreview';
 import { connect } from 'react-redux';
-import { addError } from '../redux/actions/index';
-
-class _Main extends Component {
+import { error } from 'react-notification-system-redux';
+class Main extends Component {
     state = {
         documents: [],
         search: '',
@@ -64,13 +63,11 @@ class _Main extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addError: error => dispatch(addError(error)),
+        addError: err => dispatch(error(err)),
     };
 }
 
-const Main = connect(
+export default connect(
     null,
     mapDispatchToProps,
-)(_Main);
-
-export default Main;
+)(Main);
