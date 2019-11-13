@@ -57,3 +57,31 @@ body {
         background: $primary-color;
     }
 }
+
+.search {
+    margin: auto;
+    & .input-group-prepend {
+        & .input-group-text {
+            background: white;
+            border-right: 0;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+    }
+    & .form-control {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        max-width: 100px;
+        &:focus,
+        &.open {
+            max-width: 100%;
+        }
+    }
+}
+
+.form-control:focus {
+    outline-color: transparent !important;
+    outline-style: none !important;
+    box-shadow: none;
+    border-color: #ced4da;
+}

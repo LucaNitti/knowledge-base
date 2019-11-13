@@ -32,6 +32,20 @@ app.get('/api/get/:id', (req, res) => {
     });
 });
 
+app.get('/api/search/:search', (req, res) => {
+    let search = req.params.search;
+    if (!search) res.status(500).send({ error: 'not valid search' });
+    let searchObject = {
+        title: { $regex: '.*' + search + '.*' },
+        content: { $regex: '.*' + search + '.*' },
+    };
+
+    Document.find(searchObject, (error, documents) => {
+        if (error) return res.status(500).send({ error });
+        return res.status(200).send({ documents });
+    });
+});
+
 app.post('/api/save', (req, res) => {
     var obj = req.body;
     var document = new Document(obj);
