@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import ArticlePreview from './ArticlePreview';
-import NotificationSystem from 'react-notification-system';
+import { connect } from 'react-redux';
+import { addError } from '../redux/actions/index';
 
-export default class Main extends Component {
+class _Main extends Component {
     state = {
         documents: [],
         search: '',
     };
-    notificationSystem = React.createRef();
 
     componentDidMount() {
         axios
@@ -17,29 +17,19 @@ export default class Main extends Component {
             .then(res => {
                 this.setState({ documents: res.data.documents });
             })
-            .catch(err => this.showError('Unable to get list of Documents'));
+            .catch(err => this.props.addError({ message: 'Unable to get list of Documents', level: 'error' }));
     }
-
-    showError = error => {
-        const notification = this.notificationSystem.current;
-        notification.addNotification({
-            message: error,
-            level: 'error',
-        });
-    };
 
     doSearch = () => {
         let { search } = this.state;
-        let url = search.length ? `/api/search/${search}` : '/api/get';
+        let url = search.length ? `/api/searsch/${search}` : '/api/get';
         axios
             .get(url)
             .then(res => {
                 console.log(res.data.documents);
                 this.setState({ documents: res.data.documents });
             })
-            .catch(err => {
-                this.showError('Search error.');
-            });
+            .catch(err => this.props.addError({ message: 'Error on search', level: 'error' }));
     };
 
     handleSearch = event => {
@@ -52,7 +42,6 @@ export default class Main extends Component {
         if (search.length != 0) searchClass += ' open';
         return (
             <>
-                <NotificationSystem ref={this.notificationSystem} />
                 <div className="row">
                     <div className="col">
                         <div className="input-group search">
@@ -72,3 +61,16 @@ export default class Main extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addError: error => dispatch(addError(error)),
+    };
+}
+
+const Main = connect(
+    null,
+    mapDispatchToProps,
+)(_Main);
+
+export default Main;
