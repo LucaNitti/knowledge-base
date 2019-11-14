@@ -1,20 +1,28 @@
-import { ADD_ERROR } from '../costants/index';
+import { FETCH_DOCUMENTS, FETCH_DOCUMENTS_SUCCESS, FETCH_DOCUMENTS_ERROR } from '../costants/index';
 import { reducer as notifications } from 'react-notification-system-redux';
 import { combineReducers } from 'redux';
 const initialState = {
-    errors: [],
+    documents: [],
 };
-function myReducer(state = initialState, action) {
-    if (action.type === ADD_ERROR) {
-        return {
-            ...state,
-            ...{
-                errors: state.errors.concat(action.payload),
-            },
-        };
+function documentsReducer(state = initialState, action) {
+    switch (action.type) {
+        case FETCH_DOCUMENTS:
+            return {
+                ...state,
+            };
+        case FETCH_DOCUMENTS_SUCCESS:
+            return {
+                ...state,
+                documents: action.payload,
+            };
+        case FETCH_DOCUMENTS_ERROR:
+            return {
+                ...state,
+                documents: action.payload,
+            };
+        default:
+            return state;
     }
-    return state;
 }
-console.log(myReducer, notifications);
-const rootReducer = combineReducers({ myReducer, notifications });
+const rootReducer = combineReducers({ documentsReducer, notifications });
 export default rootReducer;

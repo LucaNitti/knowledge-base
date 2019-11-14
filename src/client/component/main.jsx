@@ -3,44 +3,34 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from 'axios';
 import ArticlePreview from './ArticlePreview';
 import { connect } from 'react-redux';
-import { error } from 'react-notification-system-redux';
+import { fetchDocumentsAction } from '../redux/middleware/index';
 class Main extends Component {
     state = {
-        documents: [],
         search: '',
     };
 
     componentDidMount() {
-        axios
-            .get('/api/get')
-            .then(res => {
-                this.setState({ documents: res.data.documents });
-            })
-            .catch(err => this.props.addError({ message: 'Unable to get list of Documents', level: 'error' }));
+        this.props.fetchDocuments({});
     }
+
+    componentWillReceiveProps() {}
 
     doSearch = () => {
         let { search } = this.state;
-        let url = search.length ? `/api/searsch/${search}` : '/api/get';
-        axios
-            .get(url)
-            .then(res => {
-                this.setState({ documents: res.data.documents });
-            })
-            .catch(err => this.props.addError({ message: 'Error on search', level: 'error' }));
+        this.props.fetchDocuments({ search });
     };
 
     handleSearch = event => {
         this.setState({ search: event.target.value }, this.doSearch);
     };
     shouldComponentUpdate(nextProps, nextState) {
-        let shouldUpdate = nextProps.errors != this.props.errors;
-        shouldUpdate = shouldUpdate || JSON.stringify(nextState) != JSON.stringify(this.state);
+        let shouldUpdate = shouldUpdate || JSON.stringify(nextProps.documents) != JSON.stringify(this.props.documents);
         return shouldUpdate;
     }
 
     render() {
-        const { documents, search } = this.state;
+        const { search } = this.state;
+        const { documents } = this.props;
         let searchClass = 'form-control';
         if (search.length != 0) searchClass += ' open';
         return (
@@ -57,7 +47,7 @@ class Main extends Component {
                         </div>
                     </div>
                 </div>
-                {documents.map(x => (
+                {(documents || []).map(x => (
                     <ArticlePreview article={x} key={x._id} />
                 ))}
             </>
@@ -65,14 +55,14 @@ class Main extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        addError: err => dispatch(error(err)),
+        fetchDocuments: parameter => dispatch(fetchDocumentsAction(parameter)),
     };
-}
+};
 
 const mapStateToProps = state => {
-    return { errors: state.errors };
+    return { documents: state.documentsReducer.documents };
 };
 export default connect(
     mapStateToProps,
