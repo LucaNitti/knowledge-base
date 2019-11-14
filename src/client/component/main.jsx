@@ -25,7 +25,6 @@ class Main extends Component {
         axios
             .get(url)
             .then(res => {
-                console.log(res.data.documents);
                 this.setState({ documents: res.data.documents });
             })
             .catch(err => this.props.addError({ message: 'Error on search', level: 'error' }));
@@ -34,6 +33,11 @@ class Main extends Component {
     handleSearch = event => {
         this.setState({ search: event.target.value }, this.doSearch);
     };
+    shouldComponentUpdate(nextProps, nextState) {
+        let shouldUpdate = nextProps.errors != this.props.errors;
+        shouldUpdate = shouldUpdate || JSON.stringify(nextState) != JSON.stringify(this.state);
+        return shouldUpdate;
+    }
 
     render() {
         const { documents, search } = this.state;
@@ -67,7 +71,10 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+const mapStateToProps = state => {
+    return { errors: state.errors };
+};
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(Main);

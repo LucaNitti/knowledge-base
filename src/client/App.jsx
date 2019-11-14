@@ -5,17 +5,15 @@ import Main from './component/main';
 import Document from './component/document';
 import { connect } from 'react-redux';
 import Notifications from 'react-notification-system-redux';
+import { error } from 'react-notification-system-redux';
 class App extends Component {
     state = {
         documents: [],
     };
 
-    componentDidUpdate() {
-        let errors = this.state.errors;
-
-        console.log('componentDidUpdate', errors);
-    }
-
+    handleSendError = () => {
+        this.props.addError({ message: 'customError', level: 'error' });
+    };
     render() {
         return (
             <>
@@ -25,6 +23,9 @@ class App extends Component {
                         <Link to="/">
                             <h1 className="text-center">Knowledge base</h1>{' '}
                         </Link>
+                        <span className="btn btn-danger" onClick={this.handleSendError}>
+                            Send Error
+                        </span>
 
                         <Link replace={true} to="/new" className="addArticle">
                             <i className="fas fa-plus fa-5x"></i>
@@ -45,7 +46,13 @@ const mapStateToProps = state => {
     return { notifications: state.notifications };
 };
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addError: err => dispatch(error(err)),
+    };
+}
+
 export default connect(
     mapStateToProps,
-    null,
+    mapDispatchToProps,
 )(App);
