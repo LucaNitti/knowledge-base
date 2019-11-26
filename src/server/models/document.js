@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const documentSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -18,5 +19,6 @@ const documentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tags: [{ type: Schema.Types.ObjectId, ref: 'Tags' }],
 });
 module.exports = mongoose.model('Document', documentSchema, 'documents');
