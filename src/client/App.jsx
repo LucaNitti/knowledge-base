@@ -11,9 +11,6 @@ class App extends Component {
         documents: [],
     };
 
-    handleSendError = () => {
-        this.props.addError({ message: 'customError', level: 'error' });
-    };
     render() {
         return (
             <>
@@ -23,9 +20,6 @@ class App extends Component {
                         <Link to="/">
                             <h1 className="text-center">Knowledge base</h1>{' '}
                         </Link>
-                        <span className="btn btn-danger" onClick={this.handleSendError}>
-                            Send Error
-                        </span>
 
                         <Link replace={true} to="/new" className="addArticle">
                             <i className="fas fa-plus fa-5x"></i>
@@ -52,7 +46,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

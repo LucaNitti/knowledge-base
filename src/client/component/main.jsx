@@ -47,6 +47,7 @@ class Main extends Component {
                         </div>
                     </div>
                 </div>
+                <hr />
                 {(documents || []).map(x => (
                     <ArticlePreview article={x} key={x._id} />
                 ))}
@@ -64,7 +65,4 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return { documents: state.documentsReducer.documents };
 };
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -36,8 +36,7 @@ app.get('/api/search/:search', (req, res) => {
     let search = req.params.search;
     if (!search) res.status(500).send({ error: 'not valid search' });
     let searchObject = {
-        title: { $regex: '.*' + search + '.*' },
-        content: { $regex: '.*' + search + '.*' },
+        $or: [{ title: { $regex: '.*' + search + '.*' } }, { content: { $regex: '.*' + search + '.*' } }],
     };
 
     Document.find(searchObject, (error, documents) => {
