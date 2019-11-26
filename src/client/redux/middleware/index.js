@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const fetchDocumentsAction = parameter => {
     let { search } = parameter;
-    let url = search ? `/api/search/${search}` : '/api/get';
+    let url = search ? `/api/document/search/${search}` : '/api/document/';
     return dispatch =>
         axios
             .get(url)

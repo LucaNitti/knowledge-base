@@ -21,7 +21,7 @@ export default class Document extends Component {
     componentDidMount() {
         let { id } = this.state;
         if (!id) return;
-        axios.get(`/api/get/${id}`).then(res => {
+        axios.get(`/api/document/get/${id}`).then(res => {
             console.log(res.data.document);
             if (res.data.document) {
                 const contentBlock = htmlToDraft(res.data.document.content);
@@ -50,7 +50,7 @@ export default class Document extends Component {
         else this.create(data);
     };
     update = data => {
-        axios.put('/api/save', data).then(res => {
+        axios.put('/api/document/save', data).then(res => {
             let { status, data } = res;
             if (status !== 200 || data.error) {
                 console.log('err ' + status, data.error);
@@ -61,7 +61,7 @@ export default class Document extends Component {
 
     create = data => {
         console.log('create', data);
-        axios.post('/api/save', data).then(res => {
+        axios.post('/api/document/save', data).then(res => {
             let { status, data } = res;
             if (status !== 200 || data.error) {
                 console.log('err ' + status, data.error);
