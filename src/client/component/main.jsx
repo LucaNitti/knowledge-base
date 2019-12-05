@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import axios from 'axios';
 import ArticlePreview from './ArticlePreview';
 import { connect } from 'react-redux';
 import { fetchDocumentsAction } from '../redux/middleware/index';
@@ -13,8 +12,6 @@ class Main extends Component {
         this.props.fetchDocuments({});
     }
 
-    componentWillReceiveProps() {}
-
     doSearch = () => {
         let { search } = this.state;
         this.props.fetchDocuments({ search });
@@ -23,7 +20,7 @@ class Main extends Component {
     handleSearch = event => {
         this.setState({ search: event.target.value }, this.doSearch);
     };
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         let shouldUpdate = shouldUpdate || JSON.stringify(nextProps.documents) != JSON.stringify(this.props.documents);
         return shouldUpdate;
     }

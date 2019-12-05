@@ -12,6 +12,7 @@ const ArticlePreview = props => {
         minute: 'numeric',
         hour: 'numeric',
     }).format(new Date(date));
+
     return (
         <>
             <div className="col-12 article-preview">

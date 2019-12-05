@@ -53,8 +53,8 @@ export default class Document extends Component {
     };
 
     save = () => {
-        let { id, title, tags } = this.state;
-        let content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        let { id, title, tags, editorState } = this.state;
+        let content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
         const data = { content, id, title, tags };
         if (id) this.update(data);
         else this.create(data);
