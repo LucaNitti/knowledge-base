@@ -4,5 +4,10 @@ const tagSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        required: false,
+    },
 });
-module.exports = mongoose.model('Tags', tagSchema, 'tags');
+
+module.exports = mongoose.model('Tag', tagSchema, 'tags');

@@ -1,22 +1,28 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const Document = require('../models/document');
+const Tag = require('../models/tag');
+const mongoose = require('mongoose');
 
 router.get('/', (req, res) => {
     // Find all documents in the collection
-    Document.find((error, documents) => {
-        if (error) return res.status(500).send({ error });
-        return res.status(200).send({ documents });
-    });
+    Document.find()
+        .populate('tags')
+        .exec((error, documents) => {
+            if (error) return res.status(500).send({ error });
+            return res.status(200).send({ documents });
+        });
 });
 
 router.get('/:id', (req, res) => {
     let id = req.params.id;
     if (!id) res.status(500).send({ error: 'not valid id' });
-    Document.findById(id, (error, document) => {
-        if (error) return res.status(500).send({ error });
-        return res.status(200).send({ document });
-    });
+    Document.findById(id)
+        .populate('tags')
+        .exec((error, document) => {
+            if (error) return res.status(500).send({ error });
+            return res.status(200).send({ document });
+        });
 });
 
 router.get('/search/:search', (req, res) => {

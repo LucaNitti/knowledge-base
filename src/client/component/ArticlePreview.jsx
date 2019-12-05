@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 const ArticlePreview = props => {
     let article = props.article;
     let date = article.lastModified || article.created;
+    let tags = article.tags || [];
     let formattedDate = new Intl.DateTimeFormat('it-IT', {
         year: 'numeric',
         month: 'numeric',
@@ -20,6 +21,13 @@ const ArticlePreview = props => {
                 <p className="body" dangerouslySetInnerHTML={{ __html: article.content }}></p>
                 <div className="d-flex justify-content-between">
                     <span className="text-muted">Last Edit: {formattedDate}</span>
+                    <div>
+                        {tags.map(x => (
+                            <span className="badge badge-primary" id={x._id}>
+                                {x.name}
+                            </span>
+                        ))}
+                    </div>
                     {/* <div>
                         <span className="badge badge-secondary">alice</span>
                         <span className="badge badge-primary">story</span>

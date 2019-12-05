@@ -19,6 +19,6 @@ const documentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: [{ type: Schema.Types.ObjectId, ref: 'Tags' }],
+    tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 });
 module.exports = mongoose.model('Document', documentSchema, 'documents');
