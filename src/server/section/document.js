@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const Document = require('../models/document');
-const Tag = require('../models/tag');
 const mongoose = require('mongoose');
 
 router.get('/', (req, res) => {

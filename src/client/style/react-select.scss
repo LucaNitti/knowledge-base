@@ -1,0 +1,45 @@
+.react-select {
+    & .__control {
+        border-color: $background-color;
+        &:hover {
+            border-color: black;
+        }
+        & .__value-container {
+            color: black;
+            background-color: $secondary-color;
+            & .__placeholder {
+                color: $dark-font-color;
+            }
+            & .__multi-value {
+                background-color: #007bff;
+                & .__multi-value__label {
+                    color: white;
+                }
+            }
+        }
+    }
+    & .__indicators {
+        color: black;
+        background-color: $secondary-color;
+        & .__indicator-separator {
+            background-color: black;
+        }
+        & .__dropdown-indicator {
+            color: black;
+        }
+    }
+    & .__menu {
+        z-index: 200;
+        background-color: $secondary-color;
+        margin-top: 5px;
+        -webkit-box-shadow: 5px 10px 5px 0px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 5px 10px 5px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: 5px 10px 5px 0px rgba(0, 0, 0, 0.5);
+        & .__menu-list {
+            border: 1px solid $background-color;
+            & .__option {
+                border-bottom: 1px solid $background-color;
+            }
+        }
+    }
+}

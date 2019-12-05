@@ -1,5 +1,6 @@
 @import './variable.scss';
 @import './customEditor.scss';
+@import './react-select.scss';
 h1 {
     color: $primary-color !important;
 }
@@ -89,4 +90,8 @@ body {
 .badge {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.tags {
+    margin-top: 10px;
 }

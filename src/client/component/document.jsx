@@ -128,23 +128,27 @@ export default class Document extends Component {
                         )}
                     </div>
                 </div>
-                <div className="tags">
-                    <CreatableSelect
-                        isClearable
-                        isMulti
-                        isCreatable
-                        onChange={this.handleChangeSelect}
-                        options={this.state.availableTags}
-                        onCreateOption={this.onCreateOption}
-                        value={this.state.tags}
-                        getNewOptionData={(inputValue, optionLabel) => ({
-                            _id: inputValue,
-                            name: inputValue,
-                            __isNew__: true,
-                        })}
-                        getOptionValue={option => option['name']}
-                        getOptionLabel={option => option['name']}
-                    />
+                <div className="tags row">
+                    <div className="col-6">
+                        <CreatableSelect
+                            isClearable
+                            isMulti
+                            isCreatable
+                            classNamePrefix=" "
+                            className="react-select"
+                            onChange={this.handleChangeSelect}
+                            options={this.state.availableTags}
+                            onCreateOption={this.onCreateOption}
+                            value={this.state.tags}
+                            getNewOptionData={(inputValue, optionLabel) => ({
+                                _id: inputValue,
+                                name: inputValue,
+                                __isNew__: true,
+                            })}
+                            getOptionValue={option => option['name']}
+                            getOptionLabel={option => option['name']}
+                        />
+                    </div>
                 </div>
                 <div className="row d-flex justify-content-center mt-1">
                     <div className="btn btn-info" onClick={this.save}>

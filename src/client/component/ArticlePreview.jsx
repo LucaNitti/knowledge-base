@@ -28,14 +28,6 @@ const ArticlePreview = props => {
                             </span>
                         ))}
                     </div>
-                    {/* <div>
-                        <span className="badge badge-secondary">alice</span>
-                        <span className="badge badge-primary">story</span>
-                        <span className="badge badge-success">blog</span>
-                        <span className="badge badge-info">personal</span>
-                        <span className="badge badge-warning">Warning</span>
-                        <span className="badge badge-danger">Danger</span>
-                    </div> */}
                 </div>
             </div>
             <hr />
