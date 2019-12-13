@@ -106,7 +106,6 @@ export default class Document extends Component {
             this.setState(updateState);
         });
     };
-
     render() {
         const { editorState, title } = this.state;
         return (
@@ -130,6 +129,7 @@ export default class Document extends Component {
                 </div>
                 <div className="tags row">
                     <div className="col-6">
+                        <label>Tags</label>
                         <CreatableSelect
                             isClearable
                             isMulti

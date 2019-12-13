@@ -12,7 +12,7 @@ body {
 
 .document {
     &.container {
-        background-color: $secondary-color;
+        background-color: white;
         padding-bottom: 100px;
         padding-top: 20px;
         margin-top: 50px;
@@ -22,7 +22,7 @@ body {
     }
     &.title {
         border: none;
-        background-color: $secondary-color;
+        background-color: white;
         border-bottom: 1px solid black;
         margin-bottom: 10px;
         padding-bottom: 0px;
@@ -30,6 +30,15 @@ body {
 }
 
 .article-preview {
+    & a .title {
+        margin-bottom: 0px;
+    }
+    & .tag {
+        font-size: 13px;
+        & .badge {
+            font-size: 0.8rem;
+        }
+    }
     & .body {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -38,6 +47,11 @@ body {
         -webkit-line-clamp: 5; /* number of lines to show */
         line-height: 24px; /* fallback */
         max-height: 120px;
+        margin-top: 1em;
+        margin-left: 5px;
+    }
+    & .text-muted {
+        font-size: 10px;
     }
 }
 

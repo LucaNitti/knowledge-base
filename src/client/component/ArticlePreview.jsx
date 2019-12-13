@@ -17,18 +17,20 @@ const ArticlePreview = props => {
         <>
             <div className="col-12 article-preview">
                 <Link to={`/document/${article._id}`}>
-                    <h1>{article.title}</h1>
+                    <h1 className="title">{article.title}</h1>
                 </Link>
+                <div className="tag">
+                    tag:{' '}
+                    {tags.map(x => (
+                        <span className="badge" id={x._id}>
+                            {x.name}
+                        </span>
+                    ))}
+                </div>
                 <p className="body" dangerouslySetInnerHTML={{ __html: article.content }}></p>
+
                 <div className="d-flex justify-content-between">
                     <span className="text-muted">Last Edit: {formattedDate}</span>
-                    <div>
-                        {tags.map(x => (
-                            <span className="badge badge-primary" id={x._id}>
-                                {x.name}
-                            </span>
-                        ))}
-                    </div>
                 </div>
             </div>
             <hr />
